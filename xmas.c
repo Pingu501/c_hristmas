@@ -1,8 +1,12 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
+#include <unistd.h>
 
-#define SIZE 10
+#define clear() printf("\033[H\033[J")
+#define goToXY(x,y) printf("\033[%d;%dH", (x), (y))
+
+#define SIZE 20
 
 int lastWasSpecial = 0;
 
@@ -66,12 +70,18 @@ void printTree() {
 
     // fill up for trunk
     printNTimes((maxNumberOfElements / 2) - 1, ' ');
-    printf("\x1b[32m| |\x1b[36m\n");
+    printf("\x1b[32m| |\x1b[36m\x1b[37m\n");
 }
 
 int main() {
     srand(time(NULL));
-    printTree();
+    printf("\033[2J"); // Clear screen
+
+    while (1) {
+        goToXY(0,0);
+        printTree();
+        sleep(1);
+    }
 
     return 0;
 }
