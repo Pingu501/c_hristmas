@@ -37,12 +37,12 @@ void printNTimes(int amount, char sign) {
 
 void printTree() {
     char colors[6][10] = {
-            "\x1b[31m"
-            "\x1b[32m",
-            "\x1b[33m",
-            "\x1b[34m",
-            "\x1b[35m",
-            "\x1b[36m"
+        "\x1b[31m"
+        "\x1b[32m",
+        "\x1b[33m",
+        "\x1b[34m",
+        "\x1b[35m",
+        "\x1b[36m"
     };
 
     char sign;
@@ -53,17 +53,16 @@ void printTree() {
         int numberOfWhiteSpaces = (maxNumberOfElements - numberOfSymbols) / 2;
 
         for (int i = 1; i <= maxNumberOfElements; i++) {
-            if (i > numberOfWhiteSpaces && i <= numberOfWhiteSpaces + numberOfSymbols) {
+            // the edges must be tree, not decoration
+            if (i == numberOfWhiteSpaces + 1 || i == numberOfWhiteSpaces + numberOfSymbols) {
+                printf("\x1b[32m^\x1b[37m");
+            // in the middle everything is allowed
+            } else if (i > numberOfWhiteSpaces && i <= numberOfWhiteSpaces + numberOfSymbols) {
                 char sign = getSign();
+                int colorIndex = sign == '^' ? 0 : (rand() % 5) + 1;
 
-                int colorIndex;
-                if (sign == '^') {
-                    colorIndex = 4;
-                } else {
-                    colorIndex = (rand() % 5) + 1;
-                }
-
-                printf("%s%c", colors[colorIndex], sign);
+                printf("%s%c\x1b[37m", colors[colorIndex], sign);
+            // fill up with white spaces to center the tree
             } else {
                 printf(" ");
             }
@@ -71,8 +70,9 @@ void printTree() {
         printf("\n");
     }
 
+    // fill up for trunk
     printNTimes((maxNumberOfElements / 2) - 1, ' ');
-    printf("\x1b[32m| |");
+    printf("\x1b[32m| |\x1b[36m");
     printNTimes((maxNumberOfElements / 2) - 1, ' ');
     printf("\n");
 }
@@ -80,7 +80,6 @@ void printTree() {
 int main() {
     srand(time(NULL));
     printTree();
-    usleep(10000);
 
     return 0;
 }
