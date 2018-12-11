@@ -2,7 +2,7 @@
 #include <time.h>
 #include <stdlib.h>
 
-#define SIZE 8
+#define SIZE 10
 
 int lastWasSpecial = 0;
 
@@ -44,9 +44,14 @@ void printTree() {
         int numberOfWhiteSpaces = (maxNumberOfElements - numberOfSymbols) / 2;
 
         for (int i = 1; i <= maxNumberOfElements; i++) {
+            // center with whitespaces
+            if (i <= numberOfWhiteSpaces) {
+                printf(" ");
+
             // the edges must be tree, not decoration
-            if (i == numberOfWhiteSpaces + 1 || i == numberOfWhiteSpaces + numberOfSymbols) {
+            } else if (i == numberOfWhiteSpaces + 1 || i == numberOfWhiteSpaces + numberOfSymbols) {
                 printf("\x1b[32m^\x1b[37m");
+
             // in the middle everything is allowed
             } else if (i > numberOfWhiteSpaces && i <= numberOfWhiteSpaces + numberOfSymbols) {
                 char sign = getSign();
@@ -55,7 +60,7 @@ void printTree() {
                 printf("\x1b[3%dm%c\x1b[37m", colorIndex, sign);
             // fill up with white spaces to center the tree
             } else {
-                printf(" ");
+                continue;
             }
         }
         printf("\n");
@@ -63,9 +68,7 @@ void printTree() {
 
     // fill up for trunk
     printNTimes((maxNumberOfElements / 2) - 1, ' ');
-    printf("\x1b[32m| |\x1b[36m");
-    printNTimes((maxNumberOfElements / 2) - 1, ' ');
-    printf("\n");
+    printf("\x1b[32m| |\x1b[36m\n");
 }
 
 int main() {
