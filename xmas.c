@@ -36,15 +36,6 @@ void printNTimes(int amount, char sign) {
 }
 
 void printTree() {
-    char colors[6][10] = {
-        "\x1b[31m"
-        "\x1b[32m",
-        "\x1b[33m",
-        "\x1b[34m",
-        "\x1b[35m",
-        "\x1b[36m"
-    };
-
     char sign;
     int maxNumberOfElements = getNumberOfElements(SIZE);
 
@@ -59,9 +50,9 @@ void printTree() {
             // in the middle everything is allowed
             } else if (i > numberOfWhiteSpaces && i <= numberOfWhiteSpaces + numberOfSymbols) {
                 char sign = getSign();
-                int colorIndex = sign == '^' ? 0 : (rand() % 5) + 1;
+                int colorIndex = sign == '^' ? 2 : rand() % 6;
 
-                printf("%s%c\x1b[37m", colors[colorIndex], sign);
+                printf("\x1b[3%dm%c\x1b[37m", colorIndex, sign);
             // fill up with white spaces to center the tree
             } else {
                 printf(" ");
