@@ -2,5 +2,5 @@
 
 To run:
 ```
-gcc xmas.c -std=c90 && ./a.out;
+gcc xmas.c && ./a.out;
 ```
