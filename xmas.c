@@ -43,7 +43,7 @@ void printTree() {
         int numberOfSymbols = getNumberOfElements(depth);
         int numberOfWhiteSpaces = (maxNumberOfElements - numberOfSymbols) / 2;
 
-        for (int i = 1; i <= maxNumberOfElements; i++) {
+        for (int i = 1; i <= numberOfWhiteSpaces + numberOfSymbols; i++) {
             // center with whitespaces
             if (i <= numberOfWhiteSpaces) {
                 printf(" ");
@@ -59,8 +59,6 @@ void printTree() {
 
                 printf("\x1b[3%dm%c\x1b[37m", colorIndex, sign);
             // fill up with white spaces to center the tree
-            } else {
-                continue;
             }
         }
         printf("\n");
